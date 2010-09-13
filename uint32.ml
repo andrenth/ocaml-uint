@@ -56,3 +56,10 @@ external init_custom_ops : unit -> unit = "uint32_init_custom_ops"
 let () = init_custom_ops ()
 
 let compare = Pervasives.compare
+
+let ( <  )  a b = Pervasives.compare a b < 0
+let ( >  )  a b = Pervasives.compare a b > 0
+let ( <= ) a b = Pervasives.compare a b <= 0
+let ( >= ) a b = Pervasives.compare a b >= 0
+let ( <> ) a b = Pervasives.compare a b <> 0
+
