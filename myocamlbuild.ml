@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 567a9d8d78110ad14cd36d9deef7eaf4) *)
+(* DO NOT EDIT (digest: ebd3c23e2361cdea89c1b531d7243c01) *)
 module OASISGettext = struct
 # 21 "/usr/home/brandon/Downloads/oasis-0.2.0/src/oasis/OASISGettext.ml"
   
@@ -450,12 +450,7 @@ end
 
 open Ocamlbuild_plugin;;
 let package_default =
-  {
-     MyOCamlbuildBase.lib_ocaml =
-       [("uint64", []); ("uint128", []); ("uint32", [])];
-     lib_c = [];
-     flags = [];
-     }
+  {MyOCamlbuildBase.lib_ocaml = [("uint", [])]; lib_c = []; flags = []; }
   ;;
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default package_default;;
