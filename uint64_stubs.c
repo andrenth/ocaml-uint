@@ -5,6 +5,9 @@
 #include <caml/custom.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+#include <caml/intext.h>
+#include <caml/fail.h>
+#include <caml/alloc.h>
 
 #define Uint64_val(v) (*((uint64 *)Data_custom_val(v)))
 
