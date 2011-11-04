@@ -13,14 +13,14 @@ SourceRepository head
 Library uint
   Path:       .
   BuildTools: ocamlbuild
-  Modules:    Uint,Str_conv
+  Modules:    Uint
 
 Library uint32
   Path:          .
   BuildTools:    ocamlbuild
   FindlibParent: uint
   FindlibName:   uint32
-  Modules:       Uint32
+  Modules:       Uint32, Str_conv
   CSources:      uint32_stubs.c
 
 Library uint64
@@ -28,7 +28,7 @@ Library uint64
   BuildTools:    ocamlbuild
   FindlibParent: uint
   FindlibName:   uint64
-  Modules:       Uint64
+  Modules:       Uint64, Str_conv
   CSources:      uint64_stubs.c
 
 Library uint128
@@ -37,7 +37,7 @@ Library uint128
   BuildDepends:  uint.uint64
   FindlibParent: uint
   FindlibName:   uint128
-  Modules:       Uint128
+  Modules:       Uint128, Str_conv
   
 Test spec
   TestTools:        ospec
