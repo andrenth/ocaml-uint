@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: 1f27d00dd6a07baa0f84377358c35416) *)
+(* DO NOT EDIT (digest: 6acb5025fb354f1fe7394ce6668b53b8) *)
 module OASISGettext = struct
 # 21 "/usr/home/brandon/Downloads/oasis-0.2.0/src/oasis/OASISGettext.ml"
   
@@ -453,7 +453,7 @@ let package_default =
   {
      MyOCamlbuildBase.lib_ocaml =
        [("uint64", []); ("uint", []); ("uint128", []); ("uint32", [])];
-     lib_c = [];
+     lib_c = [("uint64", ".", []); ("uint32", ".", [])];
      flags = [];
      }
   ;;

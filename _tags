@@ -1,7 +1,10 @@
 # OASIS_START
-# DO NOT EDIT (digest: 04a21b8e7e9acc6b535b7d96daff8263)
+# DO NOT EDIT (digest: a821d01af138a83f79a4c6e39ffe5822)
 # Library uint64
+<uint64.{cma,cmxa}>: use_libuint64
 # Library uint
 # Library uint128
+<*.ml{,i}>: use_uint64
 # Library uint32
+<uint32.{cma,cmxa}>: use_libuint32
 # OASIS_STOP

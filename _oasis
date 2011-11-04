@@ -13,7 +13,7 @@ SourceRepository head
 Library uint
   Path:       .
   BuildTools: ocamlbuild
-  Modules:    Uint
+  Modules:    Uint,Str_conv
 
 Library uint32
   Path:          .
@@ -21,6 +21,7 @@ Library uint32
   FindlibParent: uint
   FindlibName:   uint32
   Modules:       Uint32
+  CSources:      uint32_stubs.c
 
 Library uint64
   Path:          .
@@ -28,10 +29,12 @@ Library uint64
   FindlibParent: uint
   FindlibName:   uint64
   Modules:       Uint64
+  CSources:      uint64_stubs.c
 
 Library uint128
   Path:          .
   BuildTools:    ocamlbuild
+  BuildDepends:  uint.uint64
   FindlibParent: uint
   FindlibName:   uint128
   Modules:       Uint128
