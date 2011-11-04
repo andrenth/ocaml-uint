@@ -11,9 +11,30 @@ SourceRepository head
   Location: git://github.com/andrenth/ocaml-uint.git
 
 Library uint
-  Path:        .
-  BuildTools:  ocamlbuild
-  Modules:     Uint32,Uint64,Uint128
+  Path:       .
+  BuildTools: ocamlbuild
+  Modules:    Uint
+
+Library uint32
+  Path:          .
+  BuildTools:    ocamlbuild
+  FindlibParent: uint
+  FindlibName:   uint32
+  Modules:       Uint32
+
+Library uint64
+  Path:          .
+  BuildTools:    ocamlbuild
+  FindlibParent: uint
+  FindlibName:   uint64
+  Modules:       Uint64
+
+Library uint128
+  Path:          .
+  BuildTools:    ocamlbuild
+  FindlibParent: uint
+  FindlibName:   uint128
+  Modules:       Uint128
   
 Test spec
   TestTools:        ospec
