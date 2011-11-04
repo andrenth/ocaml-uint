@@ -4,7 +4,7 @@ Version:     0.1
 Synopsis:    Unsigned ints for OCaml
 Authors:     Andre Nathan
 LicenseFile: LICENSE
-License:     Expat
+License:     MIT
 
 SourceRepository head
   Type: git
