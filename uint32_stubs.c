@@ -5,6 +5,9 @@
 #include <caml/custom.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+#include <caml/intext.h>
+#include <caml/fail.h>
+#include <caml/alloc.h>
 
 #define Uint32_val(v) (*((uint32 *)Data_custom_val(v)))
 
@@ -134,7 +137,6 @@ CAMLprim value
 uint32_of_int(value v)
 {
     CAMLparam1(v);
-    long l = Long_val(v);
     CAMLreturn (copy_uint32(Long_val(v)));
 }
 
@@ -163,7 +165,6 @@ CAMLprim value
 uint32_of_int32(value v)
 {
     CAMLparam1(v);
-    long l = Long_val(v);
     CAMLreturn (copy_uint32((uint32)Int32_val(v)));
 }
 
