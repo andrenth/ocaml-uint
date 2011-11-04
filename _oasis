@@ -1,0 +1,31 @@
+OASISFormat: 0.2
+Name:        ocaml-uint
+Version:     0.1
+Synopsis:    Unsigned ints for OCaml
+Authors:     Andre Nathan
+LicenseFile: LICENSE
+License:     Expat
+
+SourceRepository head
+  Type: git
+  Location: git://github.com/andrenth/ocaml-uint.git
+
+Library uint32
+  Path:        .
+  BuildTools:  ocamlbuild
+  Modules:     Uint32
+  
+Library uint64
+  Path:        .
+  BuildTools:  ocamlbuild
+  Modules:     Uint64
+  
+Library uint128
+  Path:        .
+  BuildTools:  ocamlbuild
+  Modules:     Uint128
+  
+Test spec
+  TestTools:        ospec
+  WorkingDirectory: _build
+  Command:          ospec ../spec/uint*.ml
