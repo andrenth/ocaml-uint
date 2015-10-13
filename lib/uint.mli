@@ -1,16 +1,14 @@
 module type Str_conv_sig = sig
-  module type IntSig = sig
+  module type UintSig = sig
     type t
     val name    : string
     val fmt     : string
     val zero    : t
     val max_int : t
-    val min_int : t
     val bits    : int
     val of_int  : int -> t
     val to_int  : t -> int
     val add     : t -> t -> t
-    val sub     : t -> t -> t
     val mul     : t -> t -> t
     val divmod  : t -> t -> t * t
   end
@@ -28,7 +26,7 @@ module type Str_conv_sig = sig
     val printer_hex : Format.formatter -> t -> unit
   end
 
-  module Make (I : IntSig) : S with type t = I.t
+  module Make (U : UintSig) : S with type t = U.t
 end
 
 module Str_conv : Str_conv_sig
