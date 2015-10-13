@@ -77,6 +77,11 @@ module Make (I : IntSig) : S with type t = I.t = struct
     let rec loop offset (n : I.t) =
       if offset = len then n
       else begin
+        (* will shifting the current value result in an overflow? *)
+(*
+Printf.printf "check thresh %d ?< %d" (I.to_int n) (I.to_int thresh);
+        let () = if (n < thresh) then fail () else () in
+*)
         let c = s.[offset] in
         if c <> '_' then
           let d = I.of_int (digit_of_char c) in
@@ -119,7 +124,7 @@ module Make (I : IntSig) : S with type t = I.t = struct
           decr offset
         done
       in
-      let () = if x < I.zero then let () = Bytes.set buffer !offset '-' in decr offset else () in
+      let () = if x < I.zero then let () = Bytes.set buffer !offset '-' in (print_endline "is < 0!"; decr offset) else () in
       Bytes.sub_string buffer (!offset + 1) (maxlen - !offset - 1)
     end
 
