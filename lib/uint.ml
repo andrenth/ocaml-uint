@@ -106,17 +106,17 @@ module Str_conv : Str_conv_sig = struct
       if !y = U.zero then
         "0"
       else begin
-        let buffer = String.create U.bits in
+        let buffer = Bytes.create U.bits in
         let conv = "0123456789abcdef" in
         let base = U.of_int base in
-        let i = ref (String.length buffer) in
+        let i = ref (Bytes.length buffer) in
         while !y <> U.zero do
           let x', digit = U.divmod !y base in
           y := x';
           decr i;
-          buffer.[!i] <- conv.[U.to_int digit]
+          Bytes.set buffer !i conv.[U.to_int digit]
         done;
-        prefix ^ String.sub buffer !i (String.length buffer - !i)
+        prefix ^ Bytes.sub_string buffer !i (Bytes.length buffer - !i)
       end
 
     let to_string = to_string_base 10 ""
