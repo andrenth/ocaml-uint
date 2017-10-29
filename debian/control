@@ -6,7 +6,7 @@ Build-Depends:
  dh-ocaml (>= 0.9),
  ocaml-findlib,
  libfindlib-ocaml-dev,
- ocaml-nox (>= 3.11)
+ ocaml-nox (>= 4.02)
 Standards-Version: 3.9.2
 Section: ocaml
 Homepage: https://forge.ocamlcore.org/projects/ocaml-uint
