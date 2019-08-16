@@ -1,33 +1,34 @@
-type uint32
+open Stdint
+
+type uint32 = Uint32.t
 type t = uint32
 
-external add : uint32 -> uint32 -> uint32 = "uint32_add"
-external sub : uint32 -> uint32 -> uint32 = "uint32_sub"
-external mul : uint32 -> uint32 -> uint32 = "uint32_mul"
-external div : uint32 -> uint32 -> uint32 = "uint32_div"
-external rem : uint32 -> uint32 -> uint32 = "uint32_mod"
-external logand : uint32 -> uint32 -> uint32 = "uint32_and"
-external logor : uint32 -> uint32 -> uint32 = "uint32_or"
-external logxor : uint32 -> uint32 -> uint32 = "uint32_xor"
-external shift_left : uint32 -> int -> uint32 = "uint32_shift_left"
-external shift_right : uint32 -> int -> uint32 = "uint32_shift_right"
-external of_int : int -> uint32 = "uint32_of_int"
-external to_int : uint32 -> int = "uint32_to_int"
-external of_float : float -> uint32 = "uint32_of_float"
-external to_float : uint32 -> float = "uint32_to_float"
-external of_int32 : int32 -> uint32 = "uint32_of_int32"
-external to_int32 : uint32 -> int32 = "uint32_to_int32"
-external bits_of_float : float -> uint32 = "uint32_bits_of_float"
-external float_of_bits : uint32 -> float = "uint32_float_of_bits"
-external max_int_fun : unit -> uint32 = "uint32_max_int"
+let add = Uint32.add 
+let sub = Uint32.sub 
+let mul = Uint32.mul 
+let div = Uint32.div 
+let rem = Uint32.rem 
+let logand = Uint32.logand 
+let logor = Uint32.logor 
+let logxor = Uint32.logxor 
+let shift_left = Uint32.shift_left 
+let shift_right = Uint32.shift_right 
+let of_int = Uint32.of_int 
+let to_int = Uint32.to_int 
+let of_float = Uint32.of_float 
+let to_float = Uint32.to_float 
+let of_int32 = Uint32.of_int32 
+let to_int32 = Uint32.to_int32 
+let bits_of_float = Uint32.of_float
+let float_of_bits = Uint32.to_float
 
-let zero = of_int 0
-let one = of_int 1
-let succ = add one
-let pred x = sub x one
-let max_int = max_int_fun ()
-let min_int = zero
-let lognot = logxor max_int
+let zero = Uint32.zero
+let one = Uint32.one
+let succ = Uint32.succ 
+let pred = Uint32.pred 
+let max_int = Uint32.max_int 
+let min_int = Uint32.min_int 
+let lognot = Uint32.lognot 
 
 module Conv = Uint.Str_conv.Make(struct
   type t      = uint32
@@ -52,8 +53,5 @@ let printer = Conv.printer
 let printer_bin = Conv.printer_bin
 let printer_oct = Conv.printer_oct
 let printer_hex = Conv.printer_hex
-
-external init_custom_ops : unit -> unit = "uint32_init_custom_ops"
-let () = init_custom_ops ()
 
 let compare = Pervasives.compare

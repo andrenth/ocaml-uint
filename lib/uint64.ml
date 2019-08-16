@@ -1,37 +1,38 @@
-type uint64
+open Stdint
+
+type uint64 = Uint64.t
 type t = uint64
 
-external add : uint64 -> uint64 -> uint64 = "uint64_add"
-external sub : uint64 -> uint64 -> uint64 = "uint64_sub"
-external mul : uint64 -> uint64 -> uint64 = "uint64_mul"
-external div : uint64 -> uint64 -> uint64 = "uint64_div"
-external rem : uint64 -> uint64 -> uint64 = "uint64_mod"
-external logand : uint64 -> uint64 -> uint64 = "uint64_and"
-external logor : uint64 -> uint64 -> uint64 = "uint64_or"
-external logxor : uint64 -> uint64 -> uint64 = "uint64_xor"
-external shift_left : uint64 -> int -> uint64 = "uint64_shift_left"
-external shift_right : uint64 -> int -> uint64 = "uint64_shift_right"
-external of_int : int -> uint64 = "uint64_of_int"
-external to_int : uint64 -> int = "uint64_to_int"
-external of_int32 : int32 -> uint64 = "uint64_of_int32"
-external to_int32 : uint64 -> int32 = "uint64_to_int32"
-external of_int64 : int64 -> uint64 = "uint64_of_int64"
-external to_int64 : uint64 -> int64 = "uint64_to_int64"
-external of_nativeint : nativeint -> uint64 = "uint64_of_nativeint"
-external to_nativeint : uint64 -> nativeint = "uint64_to_nativeint"
-external of_float : float -> uint64 = "uint64_of_float"
-external to_float : uint64 -> float = "uint64_to_float"
-external bits_of_float : float -> uint64 = "uint64_bits_of_float"
-external float_of_bits : uint64 -> float = "uint64_float_of_bits"
-external max_int_fun : unit -> uint64 = "uint64_max_int"
+let add = Uint64.add 
+let sub = Uint64.sub 
+let mul = Uint64.mul 
+let div = Uint64.div 
+let rem = Uint64.rem 
+let logand = Uint64.logand 
+let logor = Uint64.logor 
+let logxor = Uint64.logxor 
+let lognot = Uint64.lognot
+let shift_left = Uint64.shift_left 
+let shift_right = Uint64.shift_right 
+let of_int = Uint64.of_int 
+let to_int = Uint64.to_int 
+let of_int32 = Uint64.of_int32 
+let to_int32 = Uint64.to_int32 
+let of_int64 = Uint64.of_int64 
+let to_int64 = Uint64.to_int64 
+let of_nativeint = Uint64.of_nativeint 
+let to_nativeint = Uint64.to_nativeint 
+let of_float = Uint64.of_float 
+let to_float = Uint64.to_float 
+let bits_of_float = Uint64.of_float (* This may cause issues *)
+let float_of_bits = Uint64.to_float (* This may cause issues *)
 
-let zero = of_int 0
-let one = of_int 1
-let succ = add one
-let pred x = sub x one
-let max_int = max_int_fun ()
-let min_int = zero
-let lognot = logxor max_int
+let zero = Uint64.zero
+let one = Uint64.one
+let succ = Uint64.succ
+let pred = Uint64.pred
+let max_int = Uint64.max_int
+let min_int = Uint64.min_int
 
 module Conv = Uint.Str_conv.Make(struct
   type t      = uint64
@@ -56,8 +57,5 @@ let printer = Conv.printer
 let printer_bin = Conv.printer_bin
 let printer_oct = Conv.printer_oct
 let printer_hex = Conv.printer_hex
-
-external init_custom_ops : unit -> unit = "uint64_init_custom_ops"
-let () = init_custom_ops ()
 
 let compare = Pervasives.compare

@@ -10,6 +10,7 @@ license: "MIT"
 homepage: "https://github.com/andrenth/ocaml-uint"
 dev-repo: "git+https://github.com/andrenth/ocaml-uint.git"
 bug-reports: "https://github.com/andrenth/ocaml-uint/issues"
+synopsis: "Deprecated: An unsigned integer library"
 build: [
   ["dune" "build" "-p" name "-j" jobs]
   ["dune" "build" "@doc" "-p" name ] {with-doc}

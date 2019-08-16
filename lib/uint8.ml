@@ -1,33 +1,34 @@
-type uint8
+open Stdint 
+
+type uint8 = Uint8.t
 type t = uint8
 
-external add : uint8 -> uint8 -> uint8 = "uint8_add"
-external sub : uint8 -> uint8 -> uint8 = "uint8_sub"
-external mul : uint8 -> uint8 -> uint8 = "uint8_mul"
-external div : uint8 -> uint8 -> uint8 = "uint8_div"
-external rem : uint8 -> uint8 -> uint8 = "uint8_mod"
-external logand : uint8 -> uint8 -> uint8 = "uint8_and"
-external logor : uint8 -> uint8 -> uint8 = "uint8_or"
-external logxor : uint8 -> uint8 -> uint8 = "uint8_xor"
-external shift_left : uint8 -> int -> uint8 = "uint8_shift_left"
-external shift_right : uint8 -> int -> uint8 = "uint8_shift_right"
-external of_int : int -> uint8 = "uint8_of_int"
-external to_int : uint8 -> int = "uint8_to_int"
-external of_float : float -> uint8 = "uint8_of_float"
-external to_float : uint8 -> float = "uint8_to_float"
-external of_int32 : int32 -> uint8 = "uint8_of_int32"
-external to_int32 : uint8 -> int32 = "uint8_to_int32"
-external bits_of_float : float -> uint8 = "uint8_bits_of_float"
-external float_of_bits : uint8 -> float = "uint8_float_of_bits"
-external max_int_fun : unit -> uint8 = "uint8_max_int"
+let add = Uint8.add 
+let sub = Uint8.sub 
+let mul = Uint8.mul 
+let div = Uint8.div 
+let rem = Uint8.rem 
+let logand = Uint8.logand 
+let logor = Uint8.logor 
+let logxor = Uint8.logxor 
+let lognot = Uint8.lognot
+let shift_left = Uint8.shift_left 
+let shift_right = Uint8.shift_right 
+let of_int = Uint8.of_int 
+let to_int = Uint8.to_int 
+let of_float = Uint8.of_float 
+let to_float = Uint8.to_float 
+let of_int32 = Uint8.of_int32 
+let to_int32 = Uint8.to_int32 
+let bits_of_float = Uint8.of_float (* This may cause issues *)
+let float_of_bits = Uint8.to_float (* This may cause issues *)
 
 let zero = of_int 0
 let one = of_int 1
-let succ = add one
-let pred x = sub x one
-let max_int = max_int_fun ()
-let min_int = zero
-let lognot = logxor max_int
+let succ = Uint8.succ
+let pred = Uint8.pred
+let max_int = Uint8.max_int
+let min_int = Uint8.min_int
 
 module Conv = Uint.Str_conv.Make(struct
   type t      = uint8
@@ -52,8 +53,5 @@ let printer = Conv.printer
 let printer_bin = Conv.printer_bin
 let printer_oct = Conv.printer_oct
 let printer_hex = Conv.printer_hex
-
-external init_custom_ops : unit -> unit = "uint8_init_custom_ops"
-let () = init_custom_ops ()
 
 let compare = Pervasives.compare
