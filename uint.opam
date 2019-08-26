@@ -19,4 +19,5 @@ depends: [
   "dune" {build}
   "ocamlfind" {>= "1.5"}
   "ocaml" {>= "4.07.0"}
+  "stdint" {>= "0.5.0"}
 ]
