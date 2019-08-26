@@ -58,4 +58,4 @@ let printer_bin = Conv.printer_bin
 let printer_oct = Conv.printer_oct
 let printer_hex = Conv.printer_hex
 
-let compare = Pervasives.compare
+let compare = Stdlib.compare
