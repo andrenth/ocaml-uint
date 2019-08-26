@@ -1,25 +1,25 @@
-open Stdint 
+open Stdint
 
 type uint8 = Uint8.t
 type t = uint8
 
-let add = Uint8.add 
-let sub = Uint8.sub 
-let mul = Uint8.mul 
-let div = Uint8.div 
-let rem = Uint8.rem 
-let logand = Uint8.logand 
-let logor = Uint8.logor 
-let logxor = Uint8.logxor 
+let add = Uint8.add
+let sub = Uint8.sub
+let mul = Uint8.mul
+let div = Uint8.div
+let rem = Uint8.rem
+let logand = Uint8.logand
+let logor = Uint8.logor
+let logxor = Uint8.logxor
 let lognot = Uint8.lognot
-let shift_left = Uint8.shift_left 
-let shift_right = Uint8.shift_right 
-let of_int = Uint8.of_int 
-let to_int = Uint8.to_int 
-let of_float = Uint8.of_float 
-let to_float = Uint8.to_float 
-let of_int32 = Uint8.of_int32 
-let to_int32 = Uint8.to_int32 
+let shift_left = Uint8.shift_left
+let shift_right = Uint8.shift_right
+let of_int = Uint8.of_int
+let to_int = Uint8.to_int
+let of_float = Uint8.of_float
+let to_float = Uint8.to_float
+let of_int32 = Uint8.of_int32
+let to_int32 = Uint8.to_int32
 let bits_of_float = Uint8.of_float (* This may cause issues *)
 let float_of_bits = Uint8.to_float (* This may cause issues *)
 
