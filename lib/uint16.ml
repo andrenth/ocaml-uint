@@ -1,33 +1,34 @@
-type uint16
+open Stdint
+
+type uint16 = Uint16.t
 type t = uint16
 
-external add : uint16 -> uint16 -> uint16 = "uint16_add"
-external sub : uint16 -> uint16 -> uint16 = "uint16_sub"
-external mul : uint16 -> uint16 -> uint16 = "uint16_mul"
-external div : uint16 -> uint16 -> uint16 = "uint16_div"
-external rem : uint16 -> uint16 -> uint16 = "uint16_mod"
-external logand : uint16 -> uint16 -> uint16 = "uint16_and"
-external logor : uint16 -> uint16 -> uint16 = "uint16_or"
-external logxor : uint16 -> uint16 -> uint16 = "uint16_xor"
-external shift_left : uint16 -> int -> uint16 = "uint16_shift_left"
-external shift_right : uint16 -> int -> uint16 = "uint16_shift_right"
-external of_int : int -> uint16 = "uint16_of_int"
-external to_int : uint16 -> int = "uint16_to_int"
-external of_float : float -> uint16 = "uint16_of_float"
-external to_float : uint16 -> float = "uint16_to_float"
-external of_int32 : int32 -> uint16 = "uint16_of_int32"
-external to_int32 : uint16 -> int32 = "uint16_to_int32"
-external bits_of_float : float -> uint16 = "uint16_bits_of_float"
-external float_of_bits : uint16 -> float = "uint16_float_of_bits"
-external max_int_fun : unit -> uint16 = "uint16_max_int"
+let add = Uint16.add
+let sub = Uint16.sub
+let mul = Uint16.mul
+let div = Uint16.div
+let rem = Uint16.rem
+let logand = Uint16.logand
+let logor = Uint16.logor
+let logxor = Uint16.logxor
+let lognot = Uint16.lognot 
+let shift_left = Uint16.shift_left
+let shift_right = Uint16.shift_right
+let of_int = Uint16.of_int
+let to_int = Uint16.to_int
+let of_float = Uint16.of_float
+let to_float = Uint16.to_float 
+let of_int32 = Uint16.of_int32 
+let to_int32 = Uint16.to_int32 
+let bits_of_float = Uint16.of_float (* This may cause issues *)
+let float_of_bits = Uint16.to_float (* This may cause issues *)
 
-let zero = of_int 0
-let one = of_int 1
-let succ = add one
-let pred x = sub x one
-let max_int = max_int_fun ()
-let min_int = zero
-let lognot = logxor max_int
+let zero = Uint16.zero 
+let one = Uint16.one 
+let succ = Uint16.succ 
+let pred = Uint16.pred 
+let max_int = Uint16.max_int 
+let min_int = Uint16.min_int 
 
 module Conv = Uint.Str_conv.Make(struct
   type t      = uint16
@@ -52,8 +53,5 @@ let printer = Conv.printer
 let printer_bin = Conv.printer_bin
 let printer_oct = Conv.printer_oct
 let printer_hex = Conv.printer_hex
-
-external init_custom_ops : unit -> unit = "uint16_init_custom_ops"
-let () = init_custom_ops ()
 
 let compare = Pervasives.compare

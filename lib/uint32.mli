@@ -29,7 +29,9 @@ val to_string_bin : uint32 -> string
 val to_string_oct : uint32 -> string
 val to_string_hex : uint32 -> string
 val bits_of_float : float -> uint32
+  [@@ocaml.alert deprecated]
 val float_of_bits : uint32 -> float
+  [@@ocaml.alert deprecated]
 val compare : t -> t -> int
 val printer : Format.formatter -> uint32 -> unit
 val printer_bin : Format.formatter -> uint32 -> unit

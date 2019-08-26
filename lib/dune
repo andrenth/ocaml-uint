@@ -1,0 +1,7 @@
+(library
+  (name uint)
+  (public_name uint)
+  (wrapped false)
+  (modules uint uint8 uint16 uint32 uint64 uint128)
+  (libraries stdint)
+  )

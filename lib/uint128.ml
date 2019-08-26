@@ -1,187 +1,43 @@
-type uint128 = { hi : Uint64.t; lo : Uint64.t }
-type t = uint128
+open Stdint
 
-let zero = { lo = Uint64.zero; hi = Uint64.zero }
-let one = { lo = Uint64.one; hi = Uint64.zero }
-let max_int = { lo = Uint64.max_int; hi = Uint64.max_int }
-let min_int = { lo = Uint64.min_int; hi = Uint64.min_int }
-let compare x y =
-  let cmp = Uint64.compare x.hi y.hi in
-  if cmp <> 0 then cmp
-  else Uint64.compare x.lo y.lo
+type t = Uint128.t
+type uint128 = t
 
-let add x y =
-  let l = Uint64.add x.lo y.lo in
-  let h = Uint64.add x.hi y.hi in
-  if l < x.lo then
-    { lo = l; hi = Uint64.succ h }
-  else
-    { lo = l; hi = h }
-
-let sub x y =
-  let l = Uint64.sub x.lo y.lo in
-  let h = Uint64.sub x.hi y.hi in
-  if x.lo < y.lo then
-    { lo = l; hi = Uint64.pred h }
-  else
-    { lo = l; hi = h }
-
-let mul x y =
-  let (&) = Uint64.logand in
-  let (<<) = Uint64.shift_left in
-  let (>>) = Uint64.shift_right in
-  let (+) = Uint64.add in
-  let ( * ) = Uint64.mul in
-  let max32 = Uint64.of_int64 4294967295L in
-  let p0 = ref ((x.lo & max32) * (y.lo & max32)) in
-  let p1 = ref ((x.lo & max32) * (y.lo >> 32)) in
-  let p2 = ref ((x.lo >> 32) * (y.lo & max32)) in
-  let p3 = ref ((x.lo >> 32) * (y.lo >> 32)) in
-  let l = ref !p0 in
-  let h = ref (!p3 + (!p1 >> 32) + (!p2 >> 32)) in
-  p1 := !p1 << 32;
-  l := !l + !p1;
-  if !l < !p1 then h := Uint64.succ !h;
-  p2 := !p2 << 32;
-  l := !l + !p2;
-  if !l < !p2 then h := Uint64.succ !h;
-  h := !h + x.lo * y.hi + x.hi * y.lo;
-  { lo = !l; hi = !h }
-
-let logand x y =
-  { lo = Uint64.logand x.lo y.lo; hi = Uint64.logand x.hi y.hi }
-
-let logor x y =
-  { lo = Uint64.logor x.lo y.lo; hi = Uint64.logor x.hi y.hi }
-
-let logxor x y =
-  { lo = Uint64.logxor x.lo y.lo; hi = Uint64.logxor x.hi y.hi }
-
-let lognot x =
-  { hi = Uint64.lognot x.hi; lo = Uint64.lognot x.lo }
-
-let shift_left x s =
-  let (<<) = Uint64.shift_left in
-  let (>>) = Uint64.shift_right in
-  let (||) = Uint64.logor in
-  let i = s land 127 in
-  if i = 0 then
-    x
-  else if i < 64 then
-    { lo = x.lo << i; hi = (x.hi << i) || (x.lo >> (64 - i)) }
-  else
-    { lo = Uint64.zero; hi = x.lo << (i - 64) }
-
-let shift_right x s =
-  let (<<) = Uint64.shift_left in
-  let (>>) = Uint64.shift_right in
-  let (||) = Uint64.logor in
-  let i = s land 127 in
-  if i = 0 then
-    x
-  else if i < 64 then
-    { lo = (x.lo >> i) || (x.hi << (64 - i)); hi = x.hi >> i }
-  else
-    { lo = x.hi >> (i - 64); hi = x.hi >> 63 }
-
-let shift_right_logical x s =
-  let (<<) = Uint64.shift_left in
-  let (>>) = Uint64.shift_right in
-  let (||) = Uint64.logor in
-  let i = s land 127 in
-  if i = 0 then
-    x
-  else if i < 64 then
-    { lo = (x.lo >> i) || (x.hi << (64 - i)); hi = x.hi >> i }
-  else
-    { lo = x.hi >> (i - 64); hi = Uint64.zero }
-
-let divmod modulus divisor =
-  let (|.) = Uint64.logor in
-  let mask = ref one in
-  let d = ref divisor in
-  (try
-    while Uint64.to_int64 !d.hi >= 0L do
-      let cmp = compare !d modulus in
-      d := shift_left !d 1;
-      mask := shift_left !mask 1;
-      if cmp >= 0 then raise Exit
-    done;
-  with Exit -> ());
-  let rem = ref modulus in
-  let quotient = ref zero in
-  while !mask.lo |. !mask.hi <> Uint64.zero do
-    if compare !rem !d >= 0 then begin
-      quotient := {
-        hi = !quotient.hi |. !mask.hi;
-        lo = !quotient.lo |. !mask.lo 
-      };
-      rem := sub !rem !d;
-    end;
-    mask := shift_right !mask 1;
-    d := shift_right !d 1
-  done;
-  !quotient, !rem
-
-let div x y =
-  fst (divmod x y)
-
-let rem x y =
-  snd (divmod x y)
-
-let pred x = sub x one
-let succ x = add x one
-
-let of_int x =
-  { hi = Uint64.zero; lo = Uint64.of_int x }
-
-let to_int x =
-  Uint64.to_int x.lo
-
-let of_int32 x =
-  { hi = Uint64.zero; lo = Uint64.of_int32 x }
-
-let to_int32 x =
-  Uint64.to_int32 x.lo
-
-let of_int64 x =
-  { hi = Uint64.zero; lo = Uint64.of_int64 x }
-
-let to_int64 x =
-  Uint64.to_int64 x.lo
-
-let of_nativeint x =
-  { hi = Uint64.zero; lo = Uint64.of_nativeint x }
-
-let to_nativeint x =
-  Uint64.to_nativeint x.lo
-
-let of_float x =
-  { hi = Uint64.zero; lo = Uint64.of_float x }
-
-let to_float x =
-  Uint64.to_float x.lo
-
-module Conv = Uint.Str_conv.Make(struct
-  type t      = uint128
-  let name    = "Uint128"
-  let fmt     = "ULL"
-  let zero    = zero
-  let max_int = max_int
-  let bits    = 128
-  let of_int  = of_int
-  let to_int  = to_int
-  let add     = add
-  let mul     = mul
-  let divmod  = divmod
-end)
-
-let to_string = Conv.to_string
-let to_string_bin = Conv.to_string_bin
-let to_string_oct = Conv.to_string_oct
-let to_string_hex = Conv.to_string_hex
-let of_string = Conv.of_string
-let printer = Conv.printer
-let printer_bin = Conv.printer_bin
-let printer_oct = Conv.printer_oct
-let printer_hex = Conv.printer_hex
+let zero = Uint128.zero 
+let one = Uint128.one 
+let add = Uint128.add 
+let sub = Uint128.sub 
+let mul = Uint128.mul 
+let div = Uint128.div 
+let rem = Uint128.rem 
+let succ = Uint128.succ 
+let pred = Uint128.pred 
+let max_int = Uint128.max_int 
+let min_int = Uint128.min_int 
+let logand = Uint128.logand 
+let logor = Uint128.logor 
+let logxor = Uint128.logxor 
+let lognot = Uint128.lognot 
+let shift_left = Uint128.shift_left 
+let shift_right = Uint128.shift_right 
+let shift_right_logical = Uint128.shift_right_logical 
+let of_int = Uint128.of_int 
+let to_int = Uint128.to_int 
+let of_float = Uint128.of_float 
+let to_float = Uint128.to_float 
+let of_int32 = Uint128.of_int32 
+let to_int32 = Uint128.to_int32 
+let of_int64 = Uint128.of_int64 
+let to_int64 = Uint128.to_int64 
+let of_nativeint = Uint128.of_nativeint 
+let to_nativeint = Uint128.to_nativeint 
+let of_string = Uint128.of_string 
+let to_string = Uint128.to_string 
+let to_string_bin = Uint128.to_string_bin 
+let to_string_oct = Uint128.to_string_oct 
+let to_string_hex = Uint128.to_string_hex 
+let compare = Uint128.compare 
+let printer = Uint128.printer 
+let printer_bin = Uint128.printer_bin 
+let printer_oct = Uint128.printer_oct 
+let printer_hex = Uint128.printer_hex 

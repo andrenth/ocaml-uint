@@ -1,0 +1,5 @@
+(executable
+  (name test)
+  (libraries uint crowbar core)
+  (modules test)
+  )

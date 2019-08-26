@@ -1,4 +1,4 @@
-opam-version: "1.2"
+opam-version: "2.0"
 name: "uint"
 version: "1.2.1"
 maintainer: "Andre Nathan <andre@digirati.com.br>"
@@ -8,19 +8,15 @@ authors: [
 ]
 license: "MIT"
 homepage: "https://github.com/andrenth/ocaml-uint"
-dev-repo: "https://github.com/andrenth/ocaml-uint.git"
+dev-repo: "git+https://github.com/andrenth/ocaml-uint.git"
 bug-reports: "https://github.com/andrenth/ocaml-uint/issues"
+synopsis: "Deprecated: An unsigned integer library"
 build: [
-  ["ocaml" "setup.ml" "-configure" "--prefix" prefix]
-  ["ocaml" "setup.ml" "-build"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "build" "@doc" "-p" name ] {with-doc}
 ]
-install: ["ocaml" "setup.ml" "-install"]
-remove: [
-  ["ocamlfind" "remove" "uint"]
-]
-build-doc: [ "ocaml" "setup.ml" "-doc" ]
 depends: [
-  "base-bytes"
+  "dune" {build}
   "ocamlfind" {>= "1.5"}
-  "ocamlbuild" {build}
+  "ocaml"
 ]
