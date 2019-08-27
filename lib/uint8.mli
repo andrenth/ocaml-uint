@@ -1,4 +1,4 @@
-type t
+type t = Stdint.Uint8.t
 type uint8 = t
 val zero : uint8
 val one : uint8
