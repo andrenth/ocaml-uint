@@ -1,4 +1,4 @@
-type t
+type t = Stdint.Uint64.t
 type uint64 = t
 val zero : uint64
 val one : uint64
