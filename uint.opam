@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "uint"
-version: "2.0.0"
+version: "2.0.1"
 maintainer: "Andre Nathan <andre@digirati.com.br>"
 authors: [
   "Andre Nathan <andre@digirati.com.br>"
